@@ -7,7 +7,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-composer require vsk/modal-form
+composer require vsk/yii2-editablecolum
 ```
 or add
 
