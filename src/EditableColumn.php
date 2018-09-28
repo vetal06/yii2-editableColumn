@@ -28,10 +28,7 @@ class EditableColumn extends \kartik\editable\Editable
         $this->formOptions = array_merge($this->formOptions, [
             'action' => Url::to(['/'.$this->moduleName.'/edit/index', 'id' => $this->model->id]),
         ]);
-//        if (empty($this->options['id'])) {
         $this->options['id'] = $this->getId().uniqid();
-//        }
-
         parent::initEditable();
 
 

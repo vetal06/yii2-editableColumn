@@ -12,7 +12,7 @@ composer require vsk/modal-form
 or add
 
 ```json
-"vsk/modal-form" : "~1.0.0"
+"vsk/yii2-editableColumn" : "~1.0.0"
 ```
 
 to the require section of your application's `composer.json` file.
@@ -20,48 +20,29 @@ to the require section of your application's `composer.json` file.
 
 Usage
 -----
-Include in controller
+Include in config module 
 
 ```
-class TestController extends Controller
-{
+'modules' => [
+    ...
+     'editablecolumn' => [
+            'class' => \vsk\editableColumn\module\EditableColumnModule::class,
+        ]
+    ...
+]
 
-    public function actions()
+```
+Add scenario in you model
+
+```
+    public function rules()
     {
         return [
-            'modal-form' => [
-                'class' => ModalFormAction::class,
-                'getBody' => function ($action) {
-                    return $this->render('@vendor/vsk/modal-form/src/test/views/modal-list');
-                },
-                'getTitle' => function() {
-                    return 'Список тестовых данных';
-                },
-            ],
-            'modal-form-update' => [
-                'class' => ModalFormAction::class,
-                'getBody' => function ($action) {
-                    return $this->render('@vendor/vsk/modal-form/src/test/views/update', [
-                        'model' => $action->getModel(),
-                    ]);
-                },
-                'getTitle' => function() {
-                    return 'title';
-                },
-                'getModel' => function () {
-                    $id = \Yii::$app->request->get('id');
-                    return Test::findOne($id);
-                },
-                'submitForm' => function ($action) {
-                    $model = $action->getModel();
-                    $model->load(\Yii::$app->request->post());
-                    return $model->save();
-                }
-            ],
-        ];
+            ...
+            [['email'], 'email', 'on' => [self::SCENARIO_DEFAULT, EditableColumn::MODEL_SCENARIO_EDITABLE_COLUMN]],
+            ...
+         ];
     }
-}
-
 ```
 
 Include in you view
@@ -69,11 +50,13 @@ Include in you view
 ```
 <?php
 
-echo \vsk\modalForm\ModalFormWidget::widget([
-                     'template' => function ($widget) {
-                         $id = $widget->getId();
-                         return "<button id='{$id}' data-modal-url='/adminx24/test/modal-form'>TEST</button>";
-                     }
-                 ]);
+ echo  \vsk\editableColumn\EditableColumn::widget([
+                'model'=>$model,
+                'attribute' => 'email',
+                'format' => \kartik\editable\Editable::FORMAT_BUTTON,
+                'asPopover' => true,
+                'type'=>'success',
+                'size'=>'lg',
+            ]);
 
 ```
