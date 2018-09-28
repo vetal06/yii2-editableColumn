@@ -1,4 +1,4 @@
-modalForm for Yii2
+editablecolumn for Yii2
 ========================
 Installation
 ------------
@@ -12,7 +12,7 @@ composer require vsk/modal-form
 or add
 
 ```json
-"vsk/yii2-editableColumn" : "~1.0.0"
+"vsk/yii2-editablecolumn" : "~1.0.0"
 ```
 
 to the require section of your application's `composer.json` file.
