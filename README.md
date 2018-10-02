@@ -20,6 +20,8 @@ to the require section of your application's `composer.json` file.
 
 Usage
 -----
+
+![Single column example](./resources/images/editableColumn.gif?raw=true)
 Include in config module 
 
 ```
